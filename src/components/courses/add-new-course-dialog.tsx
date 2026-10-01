@@ -40,6 +40,7 @@ import {
   type CourseFormValues,
 } from "@/lib/schemas/course-schema";
 import { useEnrollmentStore } from "@/lib/enrollment-store";
+import { z } from "zod";
 
 export function AddNewCourseDialog() {
   const addCourse = useEnrollmentStore((s) => s.addCourse);
@@ -57,13 +58,17 @@ export function AddNewCourseDialog() {
           email: "",
         },
       ],
-      // program: "CPE",
-      // semester: "1",
+      program: "CPE",
+      semester: "1",
       description: "",
       notifyByEmail: false,
     };
 
-  const form = useForm<CourseFormValues>({
+  const form = useForm<
+    z.input<typeof schema>,
+    unknown,
+    z.output<typeof schema>
+  >({
     resolver: zodResolver(schema),
     mode: "onBlur",
     defaultValues,
@@ -72,7 +77,7 @@ export function AddNewCourseDialog() {
   const {
     control,
     handleSubmit,
-    reset,
+    //reset,
     formState: { errors },
   } = form;
 

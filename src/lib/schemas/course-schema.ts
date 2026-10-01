@@ -46,13 +46,17 @@ export const createCourseFormSchema = (courses: Course[]) =>
         }
       ),
 
-    program:  z.enum(["CPE", "ISNE"], {
-      error: "เลือกหลักสูตร",
-    }),
+    program: z
+      .enum(["", "CPE", "ISNE"])
+      .refine((value) => value !== "", {
+        message: "เลือกหลักสูตร",
+      }),
 
-    semester: z.enum(["1", "2", "3"], {
-      error: "เลือกภาคการศึกษา",
-    }),
+    semester: z
+      .enum(["", "1", "2", "3"])
+      .refine((value) => value !== "", {
+        message: "เลือกภาคการศึกษา",
+      }),
 
     description: z
       .string()

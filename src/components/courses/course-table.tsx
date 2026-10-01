@@ -65,7 +65,9 @@ export function CourseTable() {
 
               {/* ภาคการศึกษา */}
               <TableCell>
-                {semesterLabels[course.semester]}
+                {course.semester
+                  ? semesterLabels[course.semester]
+                  : "—"}
               </TableCell>
 
               {/* รายละเอียด */}
